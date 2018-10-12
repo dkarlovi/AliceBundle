@@ -26,6 +26,15 @@
         </service>
 
         <!-- HautelookAliceBundle -->
+        <service id="hautelook_alice.loader.doctrine_loader"
+                 class="Hautelook\AliceBundle\Loader\DoctrineLoader">
+            <argument type="service" id="hautelook_alice.resolver.bundle" />
+            <argument type="service" id="hautelook_alice.locator" />
+            <argument type="service" id="hautelook_alice.data_fixtures.purge_loader" />
+            <argument type="service" id="hautelook_alice.data_fixtures.append_loader" />
+            <argument type="service" id="logger" on-invalid="null" />
+        </service>
+
         <service id="hautelook_alice.loader.doctrine_orm_loader"
                  class="Hautelook\AliceBundle\Loader\DoctrineOrmLoader">
             <argument type="service" id="hautelook_alice.resolver.bundle" />

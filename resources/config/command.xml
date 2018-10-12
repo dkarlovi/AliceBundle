@@ -13,6 +13,19 @@
 
             <tag name="console.command" />
         </service>
+
+        <service id="hautelook_alice.console.command.doctrine.doctrine_load_data_fixtures_command"
+                 class="Hautelook\AliceBundle\Console\Command\Doctrine\DoctrineLoadDataFixturesCommand"
+                 public="true">
+            <argument type="string">hautelook:fixtures:load-all</argument>
+            <argument type="collection">
+                <argument type="service" id="doctrine" on-invalid="ignore"/>
+                <argument type="service" id="doctrine_mongodb" on-invalid="ignore"/>
+            </argument>
+            <argument type="service" id="hautelook_alice.loader.doctrine_loader" />
+
+            <tag name="console.command" command="hautelook:fixtures:load-all"/>
+        </service>
     </services>
 
 </container>
