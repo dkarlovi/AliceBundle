@@ -11,9 +11,12 @@
 
 namespace Hautelook\AliceBundle\Loader;
 
+use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\DBAL\Sharding\PoolingShardConnection;
 use Doctrine\ORM\EntityManagerInterface;
 use Fidry\AliceDataFixtures\Bridge\Doctrine\Persister\ObjectManagerPersister;
+use Fidry\AliceDataFixtures\Bridge\Doctrine\Persister\ObjectManagerRegistryPersister;
 use Fidry\AliceDataFixtures\LoaderInterface;
 use Fidry\AliceDataFixtures\Persistence\PersisterAwareInterface;
 use Fidry\AliceDataFixtures\Persistence\PersisterInterface;
@@ -132,20 +135,20 @@ final class DoctrineLoader implements AliceBundleLoaderInterface, LoggerAwareInt
 
     /**
      * @param LoaderInterface|PersisterAwareInterface $loader
+     * @param ManagerRegistry[]                       $managerRegistries
      * @param string[]                                $files
      *
      * @return object[]
      */
     protected function loadFixtures(
         LoaderInterface $loader,
-        EntityManagerInterface $manager,
+        array $managerRegistries,
         array $files,
         array $parameters,
         ?PurgeMode $purgeMode
     ) {
-        $persister = $this->createPersister($manager);
-
-        $loader = $loader->withPersister($persister);
+        $persister = new ObjectManagerRegistryPersister($managerRegistries);
+        $loader->withPersister($persister);
 
         return $loader->load($files, $parameters, [], $purgeMode);
     }

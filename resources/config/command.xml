@@ -24,7 +24,7 @@
             </argument>
             <argument type="service" id="hautelook_alice.loader.doctrine_loader" />
 
-            <tag name="console.command" command="hautelook:fixtures:load-all"/>
+            <tag name="console.command" command="hautelook:fixtures:doctrine"/>
         </service>
     </services>
 
