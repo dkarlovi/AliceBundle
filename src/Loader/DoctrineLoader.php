@@ -148,7 +148,7 @@ final class DoctrineLoader implements AliceBundleLoaderInterface, LoggerAwareInt
         ?PurgeMode $purgeMode
     ) {
         $persister = new ObjectManagerRegistryPersister($managerRegistries);
-        $loader->withPersister($persister);
+        $loader = $loader->withPersister($persister);
 
         return $loader->load($files, $parameters, [], $purgeMode);
     }
